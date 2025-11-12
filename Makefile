@@ -13,3 +13,7 @@ dev:
 .PHONY: build
 build:
 	go build -o ./tmp/scaffold ./cmd/scaffold/main.go
+
+.PHONY: test
+test:
+	go tool gotestsum --format testname -- ./test

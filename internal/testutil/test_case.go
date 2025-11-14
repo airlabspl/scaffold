@@ -26,7 +26,7 @@ func NewTestCase(t *testing.T) *TestCase {
 }
 
 func (t *TestCase) Close() {
-
+	t.Server.Close()
 }
 
 func (tc *TestCase) Get(path string) *AssertableResponse {

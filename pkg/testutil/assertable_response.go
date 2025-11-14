@@ -3,16 +3,22 @@ package testutil
 import (
 	"net/http"
 	"testing"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 type AssertableResponse struct {
 	Response *http.Response
+	Document *goquery.Document
 	T        *testing.T
 }
 
-func NewAssertableResponse(response *http.Response, t *testing.T) *AssertableResponse {
+func NewAssertableResponse(res *http.Response, t *testing.T) *AssertableResponse {
+	doc, _ := goquery.NewDocumentFromReader(res.Body)
+
 	return &AssertableResponse{
-		Response: response,
+		Response: res,
+		Document: doc,
 		T:        t,
 	}
 }
@@ -28,6 +34,14 @@ func (ar *AssertableResponse) AssertStatus(expected int) *AssertableResponse {
 func (ar *AssertableResponse) AssertUrl(expected string) *AssertableResponse {
 	if ar.Response.Request.URL.Path != expected {
 		ar.T.Errorf("expected url %s, got %s", expected, ar.Response.Request.URL.Path)
+	}
+
+	return ar
+}
+
+func (ar *AssertableResponse) AssertVisible(selector string) *AssertableResponse {
+	if ar.Document.Find(selector).Length() == 0 {
+		ar.T.Errorf("element %s does not exist", selector)
 	}
 
 	return ar

@@ -9,7 +9,9 @@ tool (
 
 require (
 	dario.cat/mergo v1.0.2 // indirect
+	github.com/PuerkitoBio/goquery v1.10.3 // indirect
 	github.com/air-verse/air v1.63.0 // indirect
+	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/bep/godartsass/v2 v2.5.0 // indirect
 	github.com/bep/golibsass v1.2.0 // indirect
 	github.com/bitfield/gotestdox v0.2.2 // indirect
@@ -28,6 +30,7 @@ require (
 	github.com/spf13/cast v1.9.2 // indirect
 	github.com/tdewolff/parse/v2 v2.8.3 // indirect
 	golang.org/x/mod v0.27.0 // indirect
+	golang.org/x/net v0.43.0 // indirect
 	golang.org/x/sync v0.17.0 // indirect
 	golang.org/x/sys v0.36.0 // indirect
 	golang.org/x/term v0.35.0 // indirect

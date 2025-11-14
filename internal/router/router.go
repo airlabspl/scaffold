@@ -11,6 +11,7 @@ func New() *http.ServeMux {
 	r := http.NewServeMux()
 
 	r.HandleFunc("/", handler.Home())
+	r.HandleFunc("/login", handler.Login())
 
 	a := http.NewServeMux()
 	{

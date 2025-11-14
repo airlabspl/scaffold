@@ -24,3 +24,11 @@ func (ar *AssertableResponse) AssertStatus(expected int) *AssertableResponse {
 
 	return ar
 }
+
+func (ar *AssertableResponse) AssertUrl(expected string) *AssertableResponse {
+	if ar.Response.Request.URL.Path != expected {
+		ar.T.Errorf("expected url %s, got %s", expected, ar.Response.Request.URL.Path)
+	}
+
+	return ar
+}

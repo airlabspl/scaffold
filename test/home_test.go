@@ -2,7 +2,7 @@ package test
 
 import (
 	"net/http"
-	"scaffold/internal/testutil"
+	"scaffold/pkg/testutil"
 	"testing"
 )
 

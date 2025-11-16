@@ -1,8 +1,15 @@
 {{ define "content" }}
+{{ template "login_form" . }}
+{{ end }}
+
+{{ define "login_form" }}
 <form hx-post="/login">
     <div>
         <label for="email">Email</label>
         <input type="email" name="email" id="email" />
+        {{ with .Errors.Email }}
+        <p class="error">{{ . }}</p>
+        {{ end }}
     </div>
 </form>
-{{ end }}
+{{ end}}

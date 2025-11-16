@@ -1,9 +1,10 @@
 package testutil
 
 import (
-	"io"
+	"bytes"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"scaffold/internal/router"
 	"testing"
 )
@@ -33,15 +34,19 @@ func (tc *TestCase) Get(path string) *AssertableResponse {
 	return tc.do(http.MethodGet, path, nil)
 }
 
-func (tc *TestCase) Post(path string, body io.Reader) *AssertableResponse {
-	return tc.do(http.MethodPost, path, body)
+func (tc *TestCase) Post(path string, values url.Values) *AssertableResponse {
+	return tc.do(http.MethodPost, path, values)
 }
 
-func (tc *TestCase) do(method, path string, body io.Reader) *AssertableResponse {
+func (tc *TestCase) do(method, path string, values url.Values) *AssertableResponse {
+	body := bytes.NewBufferString(values.Encode())
+
 	req, err := http.NewRequest(method, tc.Server.URL+path, body)
 	if err != nil {
 		tc.T.Fatal(err)
 	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	res, err := tc.Server.Client().Do(req)
 	if err != nil {

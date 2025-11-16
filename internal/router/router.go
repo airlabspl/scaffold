@@ -10,8 +10,9 @@ import (
 func New() *http.ServeMux {
 	r := http.NewServeMux()
 
-	r.HandleFunc("/", handler.Home())
-	r.HandleFunc("/login", handler.Login())
+	r.HandleFunc("GET /{$}", handler.Home())
+	r.HandleFunc("GET /login", handler.LoginPage())
+	r.HandleFunc("POST /login", handler.LoginForm())
 
 	a := http.NewServeMux()
 	{

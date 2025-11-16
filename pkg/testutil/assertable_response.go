@@ -2,6 +2,7 @@ package testutil
 
 import (
 	"net/http"
+	"strings"
 	"testing"
 
 	"github.com/PuerkitoBio/goquery"
@@ -42,6 +43,14 @@ func (ar *AssertableResponse) AssertUrl(expected string) *AssertableResponse {
 func (ar *AssertableResponse) AssertVisible(selector string) *AssertableResponse {
 	if ar.Document.Find(selector).Length() == 0 {
 		ar.T.Errorf("element %s does not exist", selector)
+	}
+
+	return ar
+}
+
+func (ar *AssertableResponse) AssertText(text string) *AssertableResponse {
+	if !strings.Contains(ar.Document.Text(), text) {
+		ar.T.Errorf("expected to see %s, got %s", text, ar.Document.Text())
 	}
 
 	return ar

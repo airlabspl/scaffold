@@ -20,6 +20,7 @@ func TestLogin(t *testing.T) {
 		defer tc.Close()
 
 		tc.Get("/login").
-			AssertVisible(`form[hx-post="/login"]`)
+			AssertVisible(`form[hx-post="/login"]`).
+			AssertVisible(`input[name="email"]`)
 	})
 }
